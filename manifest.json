@@ -1,0 +1,7 @@
+{
+  "name": "ComplicatedTwitterPlugin",
+  "id": "813809959651811769",
+  "api": "1.0.0",
+  "main": "code.js",
+  "ui": "ui.html"
+}

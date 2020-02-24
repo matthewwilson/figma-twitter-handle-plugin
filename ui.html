@@ -1,0 +1,30 @@
+<h2>Twitter Handle</h2>
+<p>Handle: <input id="handle"></p>
+<button id="create">Create</button>
+<button id="cancel">Cancel</button>
+<script>
+
+document.getElementById('create').onclick = () => {
+  const textbox = document.getElementById('handle');
+  const handle = textbox.value;
+
+  const request = new XMLHttpRequest();
+  request.open('GET', `https://cors-anywhere.herokuapp.com/https://avatars.io/twitter/${handle}`);
+  request.responseType = 'arraybuffer';
+
+  request.onload = function (oEvent) {
+    const arrayBuffer = request.response; // Note: not oReq.responseText
+    if (arrayBuffer) {
+        const byteArray = new Uint8Array(arrayBuffer);
+        console.log(byteArray);
+        parent.postMessage({ pluginMessage: { type: 'create-handle', handle, byteArray } }, '*')
+    }
+  };
+  request.send();
+}
+
+document.getElementById('cancel').onclick = () => {
+  parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*')
+}
+
+</script>
